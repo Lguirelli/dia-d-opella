@@ -1,19 +1,41 @@
-# Tela Competição Opella
+# Ranking de Positivação Opella
 
-Base visual extraída do PSD `tela competição opella.psd`.
+Projeto pronto para GitHub Pages.
 
-## Estrutura sugerida
+## Como atualizar os valores
 
-- `assets/background-full.png`: arte final achatada em 1920x1080.
-- `assets/background-base.png`: fundo verde puro.
-- `assets/opella-logo.png`: logo superior.
-- `assets/grupofarma-logo.png`: logo inferior.
-- `assets/crown-silhouette.png`: elemento de coroa/equipe líder.
-- `index.html`: tela base em HTML.
-- `style.css`: posicionamento responsivo em 16:9.
+Abra `index.html` e edite apenas o texto dentro de:
 
-## Uso recomendado
+```html
+<textarea id="inputValores" hidden>
+Marcelly-Raquel 120
+Michele-Debora 95
+Yasmin-Laylla 80
+Alicia-Ana 60
+</textarea>
+```
 
-Use a imagem `background-full.png` quando quiser apenas uma tela estática.
+A dupla com maior número aparece com a versão da imagem com coroa.
 
-Use `index.html` e `style.css` quando quiser inserir ranking, gráfico, nomes de duplas, coroa dinâmica ou dados vindos de planilha/API.
+## Como trocar as imagens
+
+Substitua os PNGs em:
+
+```txt
+assets/duplas/
+```
+
+Use os mesmos nomes:
+
+```txt
+marcelly-raquel.png
+marcelly-raquel-coroa.png
+michele-debora.png
+michele-debora-coroa.png
+yasmin-laylla.png
+yasmin-laylla-coroa.png
+alicia-ana.png
+alicia-ana-coroa.png
+```
+
+O ideal é usar PNG transparente, corpo inteiro, todos com a mesma proporção.

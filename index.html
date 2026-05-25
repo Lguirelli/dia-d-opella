@@ -1,20 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dia D Opella</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranking de Positivação Opella</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="screen">
-    <img class="opella" src="assets/opella-logo.png" alt="Opella" />
+  <main class="background-screen">
+    <section class="podium" id="podium">
+      <div class="duo" data-duo="marcelly-raquel">
+        <img class="duo-image" src="assets/duplas/marcelly-raquel.png" alt="Marcelly e Raquel">
+        <span class="duo-name">Marcelly • Raquel</span>
+      </div>
 
-    <section class="ranking-area" aria-label="Área dinâmica do ranking">
-      <!-- Inserir aqui cards, gráfico ou ranking vindo da planilha/API -->
+      <div class="duo" data-duo="michele-debora">
+        <img class="duo-image" src="assets/duplas/michele-debora.png" alt="Michele e Debora">
+        <span class="duo-name">Michele • Debora</span>
+      </div>
+
+      <div class="duo" data-duo="yasmin-laylla">
+        <img class="duo-image" src="assets/duplas/yasmin-laylla.png" alt="Yasmin e Laylla">
+        <span class="duo-name">Yasmin • Laylla</span>
+      </div>
+
+      <div class="duo" data-duo="alicia-ana">
+        <img class="duo-image" src="assets/duplas/alicia-ana.png" alt="Alicia e Ana">
+        <span class="duo-name">Alicia • Ana</span>
+      </div>
     </section>
 
-    <img class="grupofarma" src="assets/grupofarma-logo.png" alt="GrupoFarma" />
+    <textarea id="inputValores" hidden>
+Marcelly-Raquel 120
+Michele-Debora 95
+Yasmin-Laylla 80
+Alicia-Ana 60
+    </textarea>
   </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
