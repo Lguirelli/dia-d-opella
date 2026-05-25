@@ -14,7 +14,7 @@ const duoMap = {
   },
 
   "yasmin-laylla": {
-    label: "Yasmin & Laylla",
+    label: "Laylla & Yasmin",
     normal: "assets/duplas/yasmin-laylla.png",
     crown: "assets/duplas/yasmin-laylla-coroa.png"
   },
