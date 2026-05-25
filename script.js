@@ -2,7 +2,7 @@ const rawInput = document.getElementById("inputValores").value.trim();
 
 const duoMap = {
   "marcelly-raquel": {
-    label: "Marcelly & Raquel",
+    label: "Raquel & Marcelly",
     normal: "assets/duplas/marcelly-raquel.png",
     crown: "assets/duplas/marcelly-raquel-coroa.png"
   },
@@ -20,7 +20,7 @@ const duoMap = {
   },
 
   "alicia-ana": {
-    label: "Alicia & Ana",
+    label: "Ana & Alicia",
     normal: "assets/duplas/alicia-ana.png",
     crown: "assets/duplas/alicia-ana-coroa.png"
   }
