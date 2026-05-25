@@ -7,15 +7,19 @@
 }
 
 :root {
-  --opella-width: 24vw;
-  --opella-min-width: 180px;
-  --opella-max-width: 720px;
-  --opella-top: 3vh;
+  --opella-width: clamp(180px, 22vw, 620px);
+  --opella-top: clamp(14px, 3vh, 40px);
 
-  --grupofarma-width: 10vw;
-  --grupofarma-min-width: 90px;
-  --grupofarma-max-width: 300px;
-  --grupofarma-bottom: 3vh;
+  --grupofarma-width: clamp(90px, 10vw, 260px);
+  --grupofarma-bottom: clamp(14px, 3vh, 38px);
+
+  --ranking-width: clamp(320px, 82vw, 1450px);
+  --ranking-bottom: clamp(90px, 12vh, 150px);
+
+  --duo-image-width: clamp(95px, 18vw, 320px);
+  --duo-gap: clamp(6px, 2vw, 44px);
+
+  --name-size: clamp(12px, 1.35vw, 28px);
 }
 
 html,
@@ -27,12 +31,13 @@ body {
 
 body {
   background: #003f10;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .background-screen {
   position: relative;
   width: 100vw;
+  height: 100svh;
   min-height: 100vh;
   background-image: url("assets/background-base.png");
   background-size: cover;
@@ -46,7 +51,7 @@ body {
   left: 50%;
   top: var(--opella-top);
   transform: translateX(-50%);
-  width: clamp(var(--opella-min-width), var(--opella-width), var(--opella-max-width));
+  width: var(--opella-width);
   height: auto;
   z-index: 30;
 }
@@ -56,7 +61,7 @@ body {
   left: 50%;
   bottom: var(--grupofarma-bottom);
   transform: translateX(-50%);
-  width: clamp(var(--grupofarma-min-width), var(--grupofarma-width), var(--grupofarma-max-width));
+  width: var(--grupofarma-width);
   height: auto;
   z-index: 30;
 }
@@ -64,17 +69,20 @@ body {
 .podium {
   position: absolute;
   left: 50%;
-  bottom: 12vh;
+  bottom: var(--ranking-bottom);
   transform: translateX(-50%);
-  width: min(82vw, 1450px);
+  width: var(--ranking-width);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
-  gap: clamp(12px, 2.4vw, 46px);
+  gap: var(--duo-gap);
 }
 
 .duo {
   position: relative;
+  flex: 1 1 0;
+  max-width: var(--duo-image-width);
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +92,7 @@ body {
 }
 
 .duo-image {
-  width: min(18vw, 320px);
+  width: 100%;
   height: auto;
   object-fit: contain;
   user-select: none;
@@ -93,9 +101,9 @@ body {
 }
 
 .duo-name {
-  margin-top: 14px;
+  margin-top: clamp(6px, 1vh, 14px);
   font-family: 'Anek Kannada', sans-serif;
-  font-size: clamp(18px, 1.4vw, 28px);
+  font-size: var(--name-size);
   font-weight: 700;
   line-height: 1;
   color: #ffffff;
@@ -103,6 +111,7 @@ body {
   padding: 0;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
   white-space: nowrap;
+  text-align: center;
 }
 
 .winner-glow::before {
@@ -142,73 +151,47 @@ body {
 
 @media (max-width: 900px) {
   :root {
-    --opella-width: 52vw;
-    --opella-min-width: 150px;
-    --opella-max-width: 320px;
+    --opella-width: clamp(140px, 54vw, 320px);
     --opella-top: 2vh;
 
-    --grupofarma-width: 24vw;
-    --grupofarma-min-width: 80px;
-    --grupofarma-max-width: 160px;
+    --grupofarma-width: clamp(75px, 28vw, 150px);
     --grupofarma-bottom: 2vh;
-  }
 
-  .background-screen {
-    min-height: 100svh;
+    --ranking-width: 98vw;
+    --ranking-bottom: 14vh;
+
+    --duo-image-width: 24vw;
+    --duo-gap: 0px;
+
+    --name-size: clamp(8px, 2.4vw, 13px);
   }
 
   .podium {
-    width: 99vw;
-    bottom: 12vh;
-    gap: 0;
     justify-content: space-evenly;
     padding: 0 1vw;
   }
 
-  .duo {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .duo-image {
-    width: 24vw;
-  }
-
-  .duo-name {
-    margin-top: 8px;
-    font-size: clamp(9px, 2.5vw, 13px);
-    text-align: center;
-  }
-
   .winner-glow::before {
-    width: 150%;
-    height: 110%;
+    width: 155%;
+    height: 115%;
   }
 }
 
 @media (max-width: 520px) {
   :root {
-    --opella-width: 58vw;
-    --opella-min-width: 140px;
-    --opella-max-width: 260px;
+    --opella-width: clamp(130px, 58vw, 260px);
+    --grupofarma-width: clamp(70px, 30vw, 130px);
 
-    --grupofarma-width: 30vw;
-    --grupofarma-min-width: 75px;
-    --grupofarma-max-width: 130px;
+    --ranking-width: 100vw;
+    --ranking-bottom: 15vh;
+
+    --duo-image-width: 24vw;
+    --duo-gap: 0px;
+
+    --name-size: clamp(7px, 2.35vw, 11px);
   }
 
   .podium {
-    width: 100vw;
-    bottom: 15vh;
-    gap: 0;
-    padding: 0 1vw;
-  }
-
-  .duo-image {
-    width: 24vw;
-  }
-
-  .duo-name {
-    font-size: clamp(8px, 2.4vw, 11px);
+    padding: 0 0.5vw;
   }
 }
