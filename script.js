@@ -54,14 +54,13 @@ function readValues(text) {
 }
 
 function renderPodium() {
-  const podium = document.getElementById("podium");
-  const data = readValues(rawInput).sort((a, b) => b.value - a.value);
+  const data = readValues(rawInput);
 
   if (!data.length) return;
 
-  const highestValue = data[0].value || 1;
+  const highestValue = Math.max(...data.map((item) => item.value)) || 1;
 
-  data.forEach((item, index) => {
+  data.forEach((item) => {
     const duo = document.querySelector(`[data-duo="${item.id}"]`);
     if (!duo) return;
 
@@ -69,16 +68,16 @@ function renderPodium() {
     const nameTag = duo.querySelector(".duo-name");
 
     const rawScale = item.value / highestValue;
-    const visualScale = Math.max(rawScale, 0.65);
+    const visualScale = 0.75 + rawScale * 0.45;
 
-    duo.className = `duo place-${index + 1}`;
     duo.style.transform = `scale(${visualScale})`;
 
-    image.src = index === 0 ? duoMap[item.id].crown : duoMap[item.id].normal;
+    image.src = item.value === highestValue
+      ? duoMap[item.id].crown
+      : duoMap[item.id].normal;
+
     image.alt = duoMap[item.id].label;
     nameTag.textContent = duoMap[item.id].label;
-
-    podium.appendChild(duo);
   });
 }
 
