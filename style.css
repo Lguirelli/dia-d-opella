@@ -42,6 +42,7 @@ body {
 }
 
 .logo-opella {
+  width: 420px;
   position: absolute;
 
   left: 21vw;
