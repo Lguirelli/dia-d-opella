@@ -1,21 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tela Competição Opella</title>
+  <title>Competição Opella</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="screen">
-    <img class="crown" src="assets/crown-silhouette.png" alt="Coroa da equipe líder" />
-    <img class="opella" src="assets/opella-logo.png" alt="Opella" />
+    <section class="ranking-area">
+      <h1>Ranking de Vendas</h1>
 
-    <section class="ranking-area" aria-label="Área dinâmica do ranking">
-      <!-- Inserir aqui cards, gráfico ou ranking vindo da planilha/API -->
+      <div class="cards">
+        <div class="card first-place">
+          <img class="crown" src="assets/crown.png" alt="Coroa" />
+          <div class="position">1º</div>
+          <div class="team">Ana / Alicia</div>
+          <div class="score">128 vendas</div>
+        </div>
+
+        <div class="card">
+          <div class="position">2º</div>
+          <div class="team">Raquel / Marcele</div>
+          <div class="score">116 vendas</div>
+        </div>
+
+        <div class="card">
+          <div class="position">3º</div>
+          <div class="team">Debora / Michele</div>
+          <div class="score">104 vendas</div>
+        </div>
+
+        <div class="card">
+          <div class="position">4º</div>
+          <div class="team">Laylla / Yasmim</div>
+          <div class="score">92 vendas</div>
+        </div>
+      </div>
     </section>
-
-    <img class="grupofarma" src="assets/grupofarma-logo.png" alt="GrupoFarma" />
   </main>
 </body>
 </html>
