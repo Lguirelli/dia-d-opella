@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Ranking de Positivação Opella</title>
+
   <link rel="stylesheet" href="style.css" />
 
   <style>
@@ -16,49 +18,69 @@
       min-height: 100vh;
       position: relative;
       box-sizing: border-box;
+
       padding: 130px 48px 120px;
+
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .opella-header,
-    .grupofarma-footer {
+    /* HEADER */
+
+    .opella-header {
       position: fixed;
+
+      top: 0;
       left: 0;
+
       width: 100%;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
+      padding: 28px 0 18px;
+
       z-index: 20;
+
       pointer-events: none;
     }
 
-    .opella-header {
-      top: 0;
-      padding: 28px 0 18px;
-    }
+    /* FOOTER */
 
     .grupofarma-footer {
+      position: fixed;
+
       bottom: 0;
-      padding: 18px 0 28px;
-    }
+      left: 0;
 
-    .opella,
-    .grupofarma {
-      display: block;
-      max-width: 220px;
-      height: auto;
-    }
+      width: 100%;
 
-    .ranking-area {
-      width: min(100%, 1180px);
-      min-height: 520px;
-      box-sizing: border-box;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      padding: 18px 0 28px;
+
+      z-index: 20;
+
+      pointer-events: none;
+    }
+
+    /* ÁREA RANKING */
+
+    .ranking-area {
+      width: min(100%, 1180px);
+
+      min-height: 520px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       position: relative;
+
       z-index: 5;
     }
 
@@ -66,14 +88,11 @@
       width: 100%;
     }
 
+    /* RESPONSIVO */
+
     @media (max-width: 768px) {
       .screen {
         padding: 110px 20px 100px;
-      }
-
-      .opella,
-      .grupofarma {
-        max-width: 170px;
       }
 
       .ranking-area {
@@ -82,46 +101,103 @@
     }
   </style>
 </head>
+
 <body>
   <main class="screen background-screen">
+
+    <!-- HEADER -->
+
     <header class="opella-header" aria-label="Cabeçalho Opella">
-      <img class="opella" src="assets/opella-logo.png" alt="Opella" />
+      <img
+        class="opella"
+        src="assets/opella-logo.png"
+        alt="Opella"
+      />
     </header>
 
-      <section class="ranking-area" aria-label="Área dinâmica do ranking">
-        <section class="podium" id="podium">
-          <div class="duo" data-duo="marcelly-raquel">
-            <img class="duo-image" src="assets/duplas/marcelly-raquel.png" alt="Marcelly e Raquel">
-            <span class="duo-name">Marcelly • Raquel</span>
-          </div>
+    <!-- RANKING -->
 
-          <div class="duo" data-duo="michele-debora">
-            <img class="duo-image" src="assets/duplas/michele-debora.png" alt="Michele e Debora">
-            <span class="duo-name">Michele • Debora</span>
-          </div>
+    <section
+      class="ranking-area"
+      aria-label="Área dinâmica do ranking"
+    >
 
-          <div class="duo" data-duo="yasmin-laylla">
-            <img class="duo-image" src="assets/duplas/yasmin-laylla.png" alt="Yasmin e Laylla">
-            <span class="duo-name">Yasmin • Laylla</span>
-          </div>
+      <section class="podium" id="podium">
 
-          <div class="duo" data-duo="alicia-ana">
-            <img class="duo-image" src="assets/duplas/alicia-ana.png" alt="Alicia e Ana">
-            <span class="duo-name">Alicia • Ana</span>
-          </div>
-        </section>
+        <div class="duo" data-duo="marcelly-raquel">
+          <img
+            class="duo-image"
+            src="assets/duplas/marcelly-raquel.png"
+            alt="Marcelly e Raquel"
+          />
 
-        <textarea id="inputValores" hidden>
+          <span class="duo-name">
+            Marcelly • Raquel
+          </span>
+        </div>
+
+        <div class="duo" data-duo="michele-debora">
+          <img
+            class="duo-image"
+            src="assets/duplas/michele-debora.png"
+            alt="Michele e Debora"
+          />
+
+          <span class="duo-name">
+            Michele • Debora
+          </span>
+        </div>
+
+        <div class="duo" data-duo="yasmin-laylla">
+          <img
+            class="duo-image"
+            src="assets/duplas/yasmin-laylla.png"
+            alt="Yasmin e Laylla"
+          />
+
+          <span class="duo-name">
+            Yasmin • Laylla
+          </span>
+        </div>
+
+        <div class="duo" data-duo="alicia-ana">
+          <img
+            class="duo-image"
+            src="assets/duplas/alicia-ana.png"
+            alt="Alicia e Ana"
+          />
+
+          <span class="duo-name">
+            Alicia • Ana
+          </span>
+        </div>
+
+      </section>
+
+      <!-- VALORES -->
+
+      <textarea id="inputValores" hidden>
 Marcelly-Raquel 120
 Michele-Debora 95
 Yasmin-Laylla 80
 Alicia-Ana 60
-        </textarea>
-      </section>
+      </textarea>
 
-    <footer class="grupofarma-footer" aria-label="Rodapé GrupoFarma">
-      <img class="grupofarma" src="assets/grupofarma-logo.png" alt="GrupoFarma" />
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer
+      class="grupofarma-footer"
+      aria-label="Rodapé GrupoFarma"
+    >
+      <img
+        class="grupofarma"
+        src="assets/grupofarma-logo.png"
+        alt="GrupoFarma"
+      />
     </footer>
+
   </main>
 
   <script src="script.js"></script>
