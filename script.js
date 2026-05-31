@@ -35,6 +35,19 @@ function formatMoney(value) {
   return moneyFormatter.format(Number(value) || 0);
 }
 
+
+function updateSliderFill(slider) {
+  const min = Number(slider.min || 0);
+  const max = Number(slider.max || 100);
+  const value = Number(slider.value || 0);
+  const percent = max > min ? ((value - min) / (max - min)) * 100 : 0;
+  const control = slider.closest('.duo-slider');
+
+  if (control) {
+    control.style.setProperty('--fill-percent', `${percent}%`);
+  }
+}
+
 function readSliderValues() {
   return sliders
     .map((slider) => ({
@@ -86,6 +99,11 @@ function renderPodium() {
       valueTag.textContent = formatMoney(item.value);
     }
 
+    const slider = document.querySelector(`[data-slider="${item.id}"]`);
+    if (slider) {
+      updateSliderFill(slider);
+    }
+
     if (!duo) return;
 
     const image = duo.querySelector('.duo-image');
@@ -109,6 +127,7 @@ function renderPodium() {
 
 sliders.forEach((slider) => {
   slider.value = '0';
+  updateSliderFill(slider);
   slider.addEventListener('input', renderPodium);
   slider.addEventListener('change', renderPodium);
 });
