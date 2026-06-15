@@ -133,3 +133,13 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - textura de papel aplicada também sobre o fundo verde
 - lógica do estado triste reescrita para forçar o uso de `triste.png` para toda participante com menor valor
 - limpeza de arquivos antigos não utilizados
+
+
+## Ajuste de flicker e acabamento
+
+- o flicker era causado porque o script removia e reatribuía o `src` de todas as imagens a cada ciclo de 5 segundos, mesmo sem mudança real
+- agora o `src` só é alterado quando o estado da participante realmente muda
+- o layout também só reaplica quando há mudança no snapshot de valores, escala ou estado
+- as bordas brancas foram removidas das caricaturas
+- a textura nas caricaturas está aplicada com multiply em 100% sobre os pixels visíveis
+- o fundo foi alterado para off white com textura sutil

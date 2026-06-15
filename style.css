@@ -13,6 +13,8 @@
   --lane-gap: clamp(16px, 2vw, 30px);
   --stage-height: clamp(240px, 40vh, 440px);
   --name-font-size: clamp(22px, 2.1vw, 32px);
+  --bg-offwhite: #f4f0e6;
+  --text-dark: #223126;
 }
 
 html,
@@ -20,7 +22,7 @@ body {
   width: 100%;
   min-width: var(--app-min-width);
   min-height: 100%;
-  background: #004814;
+  background: var(--bg-offwhite);
   font-family: "Anek Kannada", Arial, Helvetica, sans-serif;
 }
 
@@ -45,7 +47,7 @@ img {
 }
 
 .background-screen {
-  background: #004814;
+  background: var(--bg-offwhite);
 }
 
 .background-screen::before {
@@ -55,7 +57,7 @@ img {
   background-image: url('./assets/textures/background-paper.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
+  opacity: 0.32;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 1;
@@ -87,6 +89,8 @@ img {
   height: auto;
   object-fit: contain;
   user-select: none;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.9;
 }
 
 .brand-logo-opella {
@@ -136,12 +140,6 @@ img {
   justify-content: center;
 }
 
-.participant-stage::after,
-.participant.is-leader::before,
-.participant.is-lead-tie::before {
-  display: none !important;
-}
-
 .participant-image {
   position: relative;
   z-index: 1;
@@ -150,7 +148,7 @@ img {
   object-fit: contain;
   transform-origin: center bottom;
   transform: scale(var(--participant-scale));
-  transition: transform 0.55s ease, opacity 0.25s ease;
+  transition: transform 0.55s ease;
   filter: none;
   user-select: none;
   pointer-events: none;
@@ -160,25 +158,14 @@ img {
   position: relative;
   z-index: 2;
   display: inline-block;
-  background: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   min-width: 0;
   padding: 0;
-  border-radius: 0;
-  color: #ffffff;
+  color: var(--text-dark);
   font-size: var(--name-font-size);
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
   text-shadow: none;
-}
-
-.participant.is-leader .participant-image,
-.participant.is-last .participant-image,
-.participant[data-state="sad"] .participant-image {
-  filter: none;
 }
 
 @media (max-width: 980px) {

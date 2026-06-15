@@ -38,7 +38,7 @@ const participantMap = {
 };
 
 const participantOrder = Object.keys(participantMap);
-let refreshCounter = 0;
+let lastSnapshot = '';
 
 function normalizeName(value) {
   return String(value || '')
@@ -106,29 +106,18 @@ function getScales(data) {
 
 function resolveStates(data) {
   const states = Object.fromEntries(participantOrder.map((id) => [id, 'neutral']));
-
-  if (!data.length) {
-    return states;
-  }
+  if (!data.length) return states;
 
   const values = data.map((item) => item.value);
   const hasAnyPositive = values.some((value) => value > 0);
-
-  if (!hasAnyPositive) {
-    return states;
-  }
+  if (!hasAnyPositive) return states;
 
   const highestValue = Math.max(...values);
   const lowestValue = Math.min(...values);
   const allSame = values.every((value) => value === values[0]);
 
-  const leaderIds = data
-    .filter((item) => item.value === highestValue)
-    .map((item) => item.id);
-
-  const lastIds = allSame
-    ? []
-    : data.filter((item) => item.value === lowestValue).map((item) => item.id);
+  const leaderIds = data.filter((item) => item.value === highestValue).map((item) => item.id);
+  const lastIds = allSame ? [] : data.filter((item) => item.value === lowestValue).map((item) => item.id);
 
   if (leaderIds.length === 1) {
     states[leaderIds[0]] = 'crown';
@@ -141,7 +130,16 @@ function resolveStates(data) {
   return states;
 }
 
-function updateCard(card, config, state, scale, refreshToken) {
+function buildSnapshot(data, states) {
+  return JSON.stringify(
+    participantOrder.map((id) => {
+      const item = data.find((entry) => entry.id === id) || { value: 0, scale: 1 };
+      return { id, value: item.value, scale: item.scale, state: states[id] || 'neutral' };
+    })
+  );
+}
+
+function updateCard(card, config, state, scale) {
   const image = card.querySelector('.participant-image');
   const name = card.querySelector('.participant-name');
 
@@ -149,15 +147,15 @@ function updateCard(card, config, state, scale, refreshToken) {
   card.style.setProperty('--participant-scale', String(scale || 1));
   card.classList.toggle('is-leader', state === 'crown');
   card.classList.toggle('is-last', state === 'sad');
-  card.classList.remove('is-lead-tie');
-  card.classList.remove('is-last-tie');
 
   if (image) {
-    const nextSrc = `${config.states[state]}?v=${encodeURIComponent(refreshToken)}`;
-    image.removeAttribute('src');
-    image.setAttribute('src', nextSrc);
-    image.setAttribute('alt', `${config.label} - ${state}`);
-    image.dataset.renderedState = state;
+    const desiredSrc = config.states[state];
+    if (image.dataset.currentState !== state || image.dataset.currentSrc !== desiredSrc) {
+      image.src = desiredSrc;
+      image.dataset.currentState = state;
+      image.dataset.currentSrc = desiredSrc;
+    }
+    image.alt = `${config.label} - ${state}`;
   }
 
   if (name) {
@@ -166,10 +164,15 @@ function updateCard(card, config, state, scale, refreshToken) {
 }
 
 function applyRanking(parsedData) {
-  refreshCounter += 1;
   const scaledData = getScales(parsedData);
   const states = resolveStates(parsedData);
-  const refreshToken = `rank-${refreshCounter}-${Date.now()}`;
+  const snapshot = buildSnapshot(scaledData, states);
+
+  if (snapshot === lastSnapshot) {
+    return;
+  }
+
+  lastSnapshot = snapshot;
 
   participantOrder.forEach((id) => {
     const card = document.querySelector(`[data-participant="${id}"]`);
@@ -179,7 +182,7 @@ function applyRanking(parsedData) {
     const item = scaledData.find((entry) => entry.id === id) || { id, value: 0, scale: 1 };
     const state = states[id] || 'neutral';
 
-    updateCard(card, config, state, item.scale, refreshToken);
+    updateCard(card, config, state, item.scale);
   });
 
   console.table(
