@@ -187,3 +187,11 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - isso compensa diferenças de corte e proporção dos PNGs
 - agora as quatro começam visualmente muito mais próximas do mesmo tamanho
 - depois disso, a escala dinâmica continua crescendo de acordo com a participação no total de positivação
+
+## Correção de escala inicial
+
+- as caricaturas agora têm altura inicial fixa via `--equal-image-height`
+- o navegador não usa mais largura e altura máxima ao mesmo tempo para definir o tamanho inicial
+- `baseScale` foi normalizado para `1` em todas as participantes
+- a escala dinâmica continua crescendo conforme a participação no total de positivação
+- quando todos os valores estão zerados, as 4 começam com a mesma proporção visual

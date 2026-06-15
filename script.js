@@ -8,7 +8,7 @@ const SCALE_BOOST = 0.52;
 const participantMap = {
   michele: {
     label: 'Michele',
-    baseScale: 0.87,
+    baseScale: 1,
     states: {
       neutral: './assets/participantes/michele/neutra.png',
       crown: './assets/participantes/michele/coroa.png',
@@ -17,7 +17,7 @@ const participantMap = {
   },
   marcelly: {
     label: 'Marcelly',
-    baseScale: 1.00,
+    baseScale: 1,
     states: {
       neutral: './assets/participantes/marcelly/neutra.png',
       crown: './assets/participantes/marcelly/coroa.png',
@@ -26,7 +26,7 @@ const participantMap = {
   },
   pamela: {
     label: 'Pamela',
-    baseScale: 0.90,
+    baseScale: 1,
     states: {
       neutral: './assets/participantes/pamela/neutra.png',
       crown: './assets/participantes/pamela/coroa.png',
@@ -35,7 +35,7 @@ const participantMap = {
   },
   yasmin: {
     label: 'Yasmin',
-    baseScale: 1.18,
+    baseScale: 1,
     states: {
       neutral: './assets/participantes/yasmin/neutra.png',
       crown: './assets/participantes/yasmin/coroa.png',
