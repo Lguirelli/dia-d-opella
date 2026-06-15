@@ -160,3 +160,9 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - as imagens diminuem antes de quebrar o grid
 - abaixo de 920px o layout quebra para 2 colunas
 - abaixo de 560px o tamanho das imagens, logos e nomes é reduzido novamente
+
+## Equalização da escala zerada
+
+- o desbalanceamento visual quando todas estavam zeradas acontecia porque as caricaturas estavam sendo dimensionadas pela largura do card
+- agora as caricaturas usam `max-height: 100%` dentro de um stage com altura padronizada
+- com isso, quando todas estão com escala 1, passam a aparentar o mesmo tamanho base

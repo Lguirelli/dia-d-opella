@@ -11,7 +11,7 @@
   --grupofarma-width: clamp(58px, 7vw, 150px);
   --lane-width: clamp(116px, 15vw, 280px);
   --lane-gap: clamp(10px, 1.6vw, 30px);
-  --stage-height: clamp(190px, 35vh, 440px);
+  --stage-height: clamp(180px, 33vh, 420px);
   --name-font-size: clamp(17px, 1.7vw, 32px);
   --bg-offwhite: #f4f0e6;
   --text-dark: #223126;
@@ -95,8 +95,8 @@ img {
 
 .brand-logo-opella {
   width: var(--opella-width);
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.14));
   opacity: 1;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.14));
 }
 
 .brand-logo-grupofarma {
@@ -140,16 +140,20 @@ img {
   width: 100%;
   height: var(--stage-height);
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
+  overflow: visible;
 }
 
 .participant-image {
   position: relative;
   z-index: 1;
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center bottom;
   transform-origin: center bottom;
   transform: scale(calc(var(--rank-scale) * var(--screen-scale)));
   transition: transform 0.55s ease;
@@ -173,47 +177,11 @@ img {
   text-shadow: none;
 }
 
-
-
-  .podium {
-  width: min(1120px, 100%);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--lane-gap);
-  align-items: end;
-  justify-items: center;
-}
-}
-
-
-
-  .ranking-area {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(74px, 13vh, 140px) clamp(12px, 3vw, 48px) clamp(64px, 10vh, 130px);
-}
-
-  .podium {
-  width: min(1120px, 100%);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--lane-gap);
-  align-items: end;
-  justify-items: center;
-}
-}
-
-
 @media (max-width: 1180px) {
   :root {
     --screen-scale: 0.92;
     --lane-width: clamp(112px, 14vw, 230px);
-    --stage-height: clamp(180px, 32vh, 360px);
+    --stage-height: clamp(170px, 31vh, 350px);
     --name-font-size: clamp(16px, 1.6vw, 26px);
   }
 
@@ -226,7 +194,7 @@ img {
   :root {
     --screen-scale: 0.84;
     --lane-width: clamp(106px, 21vw, 220px);
-    --stage-height: clamp(170px, 30vh, 330px);
+    --stage-height: clamp(160px, 28vh, 300px);
     --name-font-size: clamp(16px, 2.4vw, 24px);
   }
 
@@ -247,7 +215,7 @@ img {
   :root {
     --screen-scale: 0.74;
     --lane-width: clamp(94px, 38vw, 180px);
-    --stage-height: clamp(138px, 24vh, 240px);
+    --stage-height: clamp(130px, 23vh, 220px);
     --name-font-size: clamp(15px, 4.8vw, 22px);
     --opella-width: clamp(150px, 42vw, 240px);
     --grupofarma-width: clamp(52px, 17vw, 90px);
@@ -268,6 +236,6 @@ img {
   :root {
     --screen-scale: 0.68;
     --lane-width: clamp(84px, 40vw, 150px);
-    --stage-height: clamp(120px, 22vh, 210px);
+    --stage-height: clamp(116px, 22vh, 200px);
   }
 }
