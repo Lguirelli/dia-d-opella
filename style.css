@@ -7,8 +7,8 @@
 :root {
   --app-min-width: 320px;
   --app-min-height: 560px;
-  --opella-width: clamp(160px, 16vw, 320px);
-  --grupofarma-width: clamp(140px, 18vw, 300px);
+  --opella-width: clamp(240px, 24vw, 480px);
+  --grupofarma-width: clamp(70px, 9vw, 150px);
   --lane-width: clamp(170px, 19vw, 280px);
   --lane-gap: clamp(16px, 2vw, 30px);
   --stage-height: clamp(240px, 40vh, 440px);
@@ -45,20 +45,11 @@ img {
 }
 
 .background-screen {
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.12), transparent 34%),
-    linear-gradient(180deg, #006b22 0%, #003f10 54%, #002b0b 100%);
+  background: #004814;
 }
 
 .background-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 42%),
-    linear-gradient(180deg, rgba(0, 42, 12, 0.02), rgba(0, 42, 12, 0.10));
+  display: none;
 }
 
 .brand-header,

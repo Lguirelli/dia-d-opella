@@ -1,4 +1,5 @@
 const REFRESH_INTERVAL = 5000;
+const IMAGE_VERSION = 'ranking-assets-v3';
 const SCALE_MIN = 0.78;
 const SCALE_MAX = 1.14;
 
@@ -153,10 +154,13 @@ function applyRanking(data) {
     card.classList.toggle('is-last-tie', false);
 
     if (image) {
-      const nextSrc = config.states[state];
+      const baseSrc = config.states[state];
+      const nextSrc = `${baseSrc}?v=${IMAGE_VERSION}`;
 
-      if (image.getAttribute('src') !== nextSrc) {
+      if (image.dataset.currentState !== state || image.dataset.currentBaseSrc !== baseSrc) {
         image.src = nextSrc;
+        image.dataset.currentState = state;
+        image.dataset.currentBaseSrc = baseSrc;
       }
 
       image.alt = `${config.label} - ${state}`;

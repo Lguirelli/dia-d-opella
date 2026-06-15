@@ -114,3 +114,12 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - backgrounds antigos removidos, pois o fundo está em CSS
 - placeholders `.svg` removidos
 - lógica do último lugar corrigida para usar `triste.png`
+
+
+## Ajuste visual e lógica
+
+- fundo alterado para cor flat via CSS
+- logo Opella aumentada para 1,5x
+- logo GrupoFarma reduzida pela metade
+- lógica do último lugar reforçada para usar `triste.png`
+- adicionado cache buster nas imagens para evitar que o navegador mantenha a versão neutra antiga
