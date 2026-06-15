@@ -103,3 +103,14 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - pasta antiga `assets/duplas` removida
 - logos atualizadas em `assets/opella-logo.png` e `assets/grupofarma-logo.png`
 - a participante em último lugar agora usa a versão `triste.png` sempre que houver menor valor, mesmo em empate no último lugar
+
+
+## Correção aplicada
+
+- logos corrigidas:
+  - `assets/opella-logo.png` fica no topo
+  - `assets/grupofarma-logo.png` fica no rodapé
+- pasta antiga `assets/duplas` removida
+- backgrounds antigos removidos, pois o fundo está em CSS
+- placeholders `.svg` removidos
+- lógica do último lugar corrigida para usar `triste.png`

@@ -250,3 +250,8 @@ img {
     padding-inline: 14px;
   }
 }
+
+
+.participant[data-state="sad"] .participant-image {
+  filter: saturate(0.92) brightness(0.94) drop-shadow(0 18px 22px rgba(0,0,0,0.18));
+}

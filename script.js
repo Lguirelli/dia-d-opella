@@ -117,12 +117,14 @@ function applyRanking(data) {
   const highestValue = Math.max(...values, 0);
   const lowestValue = Math.min(...values, 0);
 
-  const leaders = highestValue > 0
+  const hasAnyValue = highestValue > 0;
+  const allSame = highestValue === lowestValue;
+
+  const leaders = hasAnyValue
     ? enriched.filter((item) => item.value === highestValue)
     : [];
 
   const hasLeadTie = leaders.length > 1;
-  const allSame = highestValue === lowestValue;
 
   enriched.forEach((item) => {
     const card = document.querySelector(`[data-participant="${item.id}"]`);
@@ -132,8 +134,8 @@ function applyRanking(data) {
     const name = card.querySelector('.participant-name');
     const config = participantMap[item.id];
 
-    const isLeader = highestValue > 0 && item.value === highestValue;
-    const isLast = !allSame && item.value === lowestValue;
+    const isLeader = hasAnyValue && item.value === highestValue;
+    const isLast = hasAnyValue && !allSame && item.value === lowestValue;
 
     let state = 'neutral';
 
@@ -143,15 +145,21 @@ function applyRanking(data) {
       state = 'sad';
     }
 
+    card.dataset.state = state;
     card.style.setProperty('--participant-scale', String(item.scale || 1));
-    card.classList.toggle('is-leader', isLeader && !hasLeadTie);
-    card.classList.toggle('is-last', isLast);
+    card.classList.toggle('is-leader', state === 'crown');
+    card.classList.toggle('is-last', state === 'sad');
     card.classList.toggle('is-lead-tie', isLeader && hasLeadTie);
     card.classList.toggle('is-last-tie', false);
 
     if (image) {
-      image.src = config.states[state];
-      image.alt = config.label;
+      const nextSrc = config.states[state];
+
+      if (image.getAttribute('src') !== nextSrc) {
+        image.src = nextSrc;
+      }
+
+      image.alt = `${config.label} - ${state}`;
     }
 
     if (name) {
@@ -159,7 +167,6 @@ function applyRanking(data) {
     }
   });
 }
-
 async function loadValues() {
   try {
     const response = await fetch(`./valores.txt?t=${Date.now()}`, { cache: 'no-store' });
