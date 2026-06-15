@@ -143,3 +143,8 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - as bordas brancas foram removidas das caricaturas
 - a textura nas caricaturas está aplicada com multiply em 100% sobre os pixels visíveis
 - o fundo foi alterado para off white com textura sutil
+
+## Ajuste de blend
+
+- removida a sobreposição/filtro de cor do logo da Opella
+- caricaturas configuradas com `mix-blend-mode: multiply` no CSS
