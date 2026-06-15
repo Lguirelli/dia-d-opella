@@ -1,37 +1,91 @@
-# Dia D Eurofarma — versão para portfolio
+# Dia D Eurofarma — ranking individual com leitura por TXT
 
-Projeto estático adaptado para abrir como arquivo/app dentro do portfolio.
+Projeto estático para exibir um ranking visual de positivação.
 
-## Arquivos principais
+A tela final mostra apenas:
+
+- imagem de cada participante
+- nome fixo abaixo
+- escala dinâmica conforme a positivação
+- versão com coroa para a líder
+- versão triste para a última colocada
+
+Os valores não aparecem no `index.html`.
+Eles são lidos apenas do arquivo `valores.txt`.
+
+## Estrutura principal
 
 ```txt
 index.html
 style.css
 script.js
+valores.txt
 assets/
+  participantes/
+    michele/
+    marcelly/
+    pamela/
+    yasmin/
 ```
-
-## Como usar no portfolio
-
-Coloque a pasta `dia-d-eurofarma` dentro da área de apps/projetos do portfolio e aponte o ícone para:
-
-```txt
-dia-d-eurofarma/index.html
-```
-
-O projeto não depende de backend, banco de dados ou instalação de pacotes.
 
 ## Como atualizar os valores
 
-Abra `index.html` e edite apenas o conteúdo dentro de:
+Edite somente o arquivo `valores.txt`.
 
-```html
-<textarea id="inputValores" hidden>
-Marcelly-Raquel R$142.554,36
-Michele-Debora R$80.627,09
-Yasmin-Laylla R$5.877,73
-Alicia-Ana R$46.155,86
-</textarea>
+Exemplo:
+
+```txt
+Michele: 150
+Marcelly: 80
+Pamela: 45
+Yasmin: 120
 ```
 
-A maior pontuação recebe a imagem com coroa. Em caso de empate, nenhuma coroa é aplicada e as vencedoras recebem apenas o brilho.
+Também funciona com valores monetários:
+
+```txt
+Michele: R$ 150.000,00
+Marcelly: R$ 80.000,00
+Pamela: R$ 45.000,00
+Yasmin: R$ 120.000,00
+```
+
+A página tenta reler o `valores.txt` automaticamente a cada 5 segundos.
+
+## Regras visuais implementadas
+
+- 1º lugar: imagem com coroa
+- 2º e 3º lugares: imagem neutra
+- último lugar: imagem triste
+- empate na liderança: ninguém recebe coroa, apenas glow nas empatadas
+- empate no último lugar: ninguém recebe imagem triste
+- nomes são fixos e não escalam
+- boxes são separados e a escala ocorre só dentro da área da imagem
+
+## Troca de imagens
+
+Cada participante possui 3 arquivos:
+
+```txt
+neutra.svg
+coroa.svg
+triste.svg
+```
+
+Substitua pelos seus arquivos finais mantendo os mesmos nomes.
+
+## Observação importante
+
+Se abrir o `index.html` direto pelo sistema de arquivos, alguns navegadores podem bloquear a leitura do `valores.txt`.
+
+O ideal é rodar em servidor estático ou dentro do portfolio, por exemplo:
+
+```bash
+python -m http.server 8000
+```
+
+Depois abra:
+
+```txt
+http://localhost:8000
+```
