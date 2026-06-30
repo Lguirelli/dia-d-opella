@@ -89,13 +89,12 @@ img {
   height: auto;
   object-fit: contain;
   user-select: none;
-  opacity: 0.96;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.9;
 }
 
 .brand-logo-opella {
   width: var(--opella-width);
-  filter: none;
-  opacity: 1;
 }
 
 .brand-logo-grupofarma {
@@ -151,7 +150,6 @@ img {
   transform: scale(var(--participant-scale));
   transition: transform 0.55s ease;
   filter: none;
-  mix-blend-mode: multiply;
   user-select: none;
   pointer-events: none;
 }

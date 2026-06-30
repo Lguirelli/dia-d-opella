@@ -103,3 +103,48 @@ Não é necessário usar `background-base.png` ou `background-full.png`.
 - pasta antiga `assets/duplas` removida
 - logos atualizadas em `assets/opella-logo.png` e `assets/grupofarma-logo.png`
 - a participante em último lugar agora usa a versão `triste.png` sempre que houver menor valor, mesmo em empate no último lugar
+
+
+## Correção aplicada
+
+- logos corrigidas:
+  - `assets/opella-logo.png` fica no topo
+  - `assets/grupofarma-logo.png` fica no rodapé
+- pasta antiga `assets/duplas` removida
+- backgrounds antigos removidos, pois o fundo está em CSS
+- placeholders `.svg` removidos
+- lógica do último lugar corrigida para usar `triste.png`
+
+
+## Ajuste visual e lógica
+
+- fundo alterado para cor flat via CSS
+- logo Opella aumentada para 1,5x
+- logo GrupoFarma reduzida pela metade
+- lógica do último lugar reforçada para usar `triste.png`
+- adicionado cache buster nas imagens para evitar que o navegador mantenha a versão neutra antiga
+
+
+## Ajustes aplicados
+
+- removidos glow e drop shadow das imagens
+- removidos boxes dos nomes e das imagens
+- imagens das participantes reconstruídas como recortes com borda branca de 5px e textura de papel aplicada em multiply a 50%
+- textura de papel aplicada também sobre o fundo verde
+- lógica do estado triste reescrita para forçar o uso de `triste.png` para toda participante com menor valor
+- limpeza de arquivos antigos não utilizados
+
+
+## Ajuste de flicker e acabamento
+
+- o flicker era causado porque o script removia e reatribuía o `src` de todas as imagens a cada ciclo de 5 segundos, mesmo sem mudança real
+- agora o `src` só é alterado quando o estado da participante realmente muda
+- o layout também só reaplica quando há mudança no snapshot de valores, escala ou estado
+- as bordas brancas foram removidas das caricaturas
+- a textura nas caricaturas está aplicada com multiply em 100% sobre os pixels visíveis
+- o fundo foi alterado para off white com textura sutil
+
+## Ajuste de blend
+
+- removida a sobreposição/filtro de cor do logo da Opella
+- caricaturas configuradas com `mix-blend-mode: multiply` no CSS

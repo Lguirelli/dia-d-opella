@@ -5,7 +5,6 @@ const SCALE_MAX = 1.14;
 const participantMap = {
   michele: {
     label: 'Michele',
-    fileKey: 'michele',
     states: {
       neutral: './assets/participantes/michele/neutra.png',
       crown: './assets/participantes/michele/coroa.png',
@@ -14,7 +13,6 @@ const participantMap = {
   },
   marcelly: {
     label: 'Marcelly',
-    fileKey: 'marcelly',
     states: {
       neutral: './assets/participantes/marcelly/neutra.png',
       crown: './assets/participantes/marcelly/coroa.png',
@@ -23,7 +21,6 @@ const participantMap = {
   },
   pamela: {
     label: 'Pamela',
-    fileKey: 'pamela',
     states: {
       neutral: './assets/participantes/pamela/neutra.png',
       crown: './assets/participantes/pamela/coroa.png',
@@ -32,7 +29,6 @@ const participantMap = {
   },
   yasmin: {
     label: 'Yasmin',
-    fileKey: 'yasmin',
     states: {
       neutral: './assets/participantes/yasmin/neutra.png',
       crown: './assets/participantes/yasmin/coroa.png',
@@ -42,6 +38,7 @@ const participantMap = {
 };
 
 const participantOrder = Object.keys(participantMap);
+let lastSnapshot = '';
 
 function normalizeName(value) {
   return String(value || '')
@@ -93,11 +90,7 @@ function getScales(data) {
   const spread = maxValue - minValue;
 
   return data.map((item) => {
-    if (maxValue <= 0) {
-      return { ...item, scale: 1 };
-    }
-
-    if (spread <= 0) {
+    if (maxValue <= 0 || spread <= 0) {
       return { ...item, scale: 1 };
     }
 
@@ -111,53 +104,94 @@ function getScales(data) {
   });
 }
 
-function applyRanking(data) {
-  const enriched = getScales(data);
-  const values = enriched.map((item) => item.value);
-  const highestValue = Math.max(...values, 0);
-  const lowestValue = Math.min(...values, 0);
+function resolveStates(data) {
+  const states = Object.fromEntries(participantOrder.map((id) => [id, 'neutral']));
+  if (!data.length) return states;
 
-  const leaders = highestValue > 0
-    ? enriched.filter((item) => item.value === highestValue)
-    : [];
+  const values = data.map((item) => item.value);
+  const hasAnyPositive = values.some((value) => value > 0);
+  if (!hasAnyPositive) return states;
 
-  const hasLeadTie = leaders.length > 1;
-  const allSame = highestValue === lowestValue;
+  const highestValue = Math.max(...values);
+  const lowestValue = Math.min(...values);
+  const allSame = values.every((value) => value === values[0]);
 
-  enriched.forEach((item) => {
-    const card = document.querySelector(`[data-participant="${item.id}"]`);
+  const leaderIds = data.filter((item) => item.value === highestValue).map((item) => item.id);
+  const lastIds = allSame ? [] : data.filter((item) => item.value === lowestValue).map((item) => item.id);
+
+  if (leaderIds.length === 1) {
+    states[leaderIds[0]] = 'crown';
+  }
+
+  lastIds.forEach((id) => {
+    states[id] = 'sad';
+  });
+
+  return states;
+}
+
+function buildSnapshot(data, states) {
+  return JSON.stringify(
+    participantOrder.map((id) => {
+      const item = data.find((entry) => entry.id === id) || { value: 0, scale: 1 };
+      return { id, value: item.value, scale: item.scale, state: states[id] || 'neutral' };
+    })
+  );
+}
+
+function updateCard(card, config, state, scale) {
+  const image = card.querySelector('.participant-image');
+  const name = card.querySelector('.participant-name');
+
+  card.dataset.state = state;
+  card.style.setProperty('--participant-scale', String(scale || 1));
+  card.classList.toggle('is-leader', state === 'crown');
+  card.classList.toggle('is-last', state === 'sad');
+
+  if (image) {
+    const desiredSrc = config.states[state];
+    if (image.dataset.currentState !== state || image.dataset.currentSrc !== desiredSrc) {
+      image.src = desiredSrc;
+      image.dataset.currentState = state;
+      image.dataset.currentSrc = desiredSrc;
+    }
+    image.alt = `${config.label} - ${state}`;
+  }
+
+  if (name) {
+    name.textContent = config.label;
+  }
+}
+
+function applyRanking(parsedData) {
+  const scaledData = getScales(parsedData);
+  const states = resolveStates(parsedData);
+  const snapshot = buildSnapshot(scaledData, states);
+
+  if (snapshot === lastSnapshot) {
+    return;
+  }
+
+  lastSnapshot = snapshot;
+
+  participantOrder.forEach((id) => {
+    const card = document.querySelector(`[data-participant="${id}"]`);
     if (!card) return;
 
-    const image = card.querySelector('.participant-image');
-    const name = card.querySelector('.participant-name');
-    const config = participantMap[item.id];
+    const config = participantMap[id];
+    const item = scaledData.find((entry) => entry.id === id) || { id, value: 0, scale: 1 };
+    const state = states[id] || 'neutral';
 
-    const isLeader = highestValue > 0 && item.value === highestValue;
-    const isLast = !allSame && item.value === lowestValue;
-
-    let state = 'neutral';
-
-    if (isLeader && !hasLeadTie) {
-      state = 'crown';
-    } else if (isLast) {
-      state = 'sad';
-    }
-
-    card.style.setProperty('--participant-scale', String(item.scale || 1));
-    card.classList.toggle('is-leader', isLeader && !hasLeadTie);
-    card.classList.toggle('is-last', isLast);
-    card.classList.toggle('is-lead-tie', isLeader && hasLeadTie);
-    card.classList.toggle('is-last-tie', false);
-
-    if (image) {
-      image.src = config.states[state];
-      image.alt = config.label;
-    }
-
-    if (name) {
-      name.textContent = config.label;
-    }
+    updateCard(card, config, state, item.scale);
   });
+
+  console.table(
+    participantOrder.map((id) => ({
+      participante: participantMap[id].label,
+      valor: parsedData.find((entry) => entry.id === id)?.value || 0,
+      estado: states[id] || 'neutral'
+    }))
+  );
 }
 
 async function loadValues() {
@@ -168,8 +202,8 @@ async function loadValues() {
     }
 
     const text = await response.text();
-    const data = parseValuesTxt(text);
-    applyRanking(data);
+    const parsedData = parseValuesTxt(text);
+    applyRanking(parsedData);
   } catch (error) {
     console.error(error);
   }
